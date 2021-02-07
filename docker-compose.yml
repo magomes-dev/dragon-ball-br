@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  dragonball.presentation.api:
+    image: ${DOCKER_REGISTRY-}dragonballpresentationapi
+    build:
+      context: .
+      dockerfile: src/DragonBall.Presentation.API/Dockerfile
