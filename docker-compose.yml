@@ -6,3 +6,32 @@ services:
     build:
       context: .
       dockerfile: src/DragonBall.Presentation.API/Dockerfile
+    depends_on:
+      - database
+
+  database:
+    image: "postgres"
+    env_file:
+      - database.env
+    volumes:
+      - database-data:/var/lib/postgresql/data/
+    networks:
+      - postgres-compose-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    env_file:
+      - pgadmin.env
+    ports:
+      - "16543:80"
+    depends_on:
+      - database
+    networks:
+      - postgres-compose-network
+
+networks: 
+  postgres-compose-network:
+    driver: bridge
+
+volumes:
+  database-data:
